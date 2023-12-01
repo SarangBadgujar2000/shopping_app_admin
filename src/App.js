@@ -1,10 +1,11 @@
 import "./App.css";
-import Signup from "./components/Signup";
+import AppRoutes from "./AppRoutes";
+
 
 function App() {
   return (
     <div className="App">
-      <Signup/>
+      <AppRoutes/>
     </div>
   );
 }

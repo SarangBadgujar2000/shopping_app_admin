@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import apiConnection from '../apiConnection';
-import Notify from './alerts/Notify';
-import { apiEndpoints, httpMethods } from '../constant';
+import apiConnection from '../../apiConnection';
+import Notify from '../common/Notify';
+import { apiEndpoints, httpMethods } from '../../constant';
 
 export default function Signup() {
 
@@ -29,9 +29,12 @@ export default function Signup() {
         console.log(signUpFormData);
         const data = await apiConnection(apiEndpoints.REGISTER_USER_ENDPOINT,httpMethods.POST,signUpFormData)
         console.log(data)
-        if(data.status === 201){
+        if(data.status === 201|| 200){
             setShowNotify(true)
             setNotifyData({...notifyData, message: data.data.message, type: 'success' })
+        }else {
+          setShowNotify(true)
+          setNotifyData({...notifyData, message: 'ERROR: Please reload your application', type: 'danger' })
         }
     }
     catch {
