@@ -4,9 +4,10 @@ import Form from 'react-bootstrap/Form';
 import apiConnection from '../../apiConnection';
 import { apiEndpoints, httpMethods } from '../../constant';
 import Notify from '../common/Notify';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-
+  const navigate=useNavigate();
   const [logInFormData, setLogInFormData] = useState({
         email: '',
         password: ''
@@ -28,6 +29,7 @@ export default function Login() {
         const data = await apiConnection(apiEndpoints.LOGIN_USER_ENDPOINT,httpMethods.POST,logInFormData)
         console.log("Log for LoginUser",data);
         if(data.status === 200){
+            navigate("/");
             setShowNotify(true)
             setNotifyData({...notifyData, message: data.data.message, type: 'success' })
         } else {
@@ -59,6 +61,12 @@ export default function Login() {
             </Button>
         </Form>
         <br></br>
+        <div className={"d-flex align-item-center"}>
+          <p style={{ marginRight: '8px' }}>Don't have an account?</p>
+          <Button variant='info' type='submit' onClick={()=>navigate("/signup")}>
+            SignUp
+          </Button>
+        </div>
        { showNotify && <Notify message={notifyData.message} type={notifyData.type} setShowNotify={setShowNotify}/>}
     </div>
   )

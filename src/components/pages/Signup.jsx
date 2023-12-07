@@ -4,9 +4,10 @@ import Form from 'react-bootstrap/Form';
 import apiConnection from '../../apiConnection';
 import Notify from '../common/Notify';
 import { apiEndpoints, httpMethods } from '../../constant';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-
+  const navigate=useNavigate();
   const [signUpFormData, setSignUpFormData] = useState({
     name: '',
     email: '',
@@ -66,6 +67,13 @@ export default function Signup() {
             </Button>
         </Form>
         <br></br>
+        <div className={"d-flex align-item-center"}>
+          <p style={{ marginRight: '8px' }}>Already have an account</p>
+          <Button variant='info' type='submit' onClick={()=>navigate("/login")}>
+            Login
+          </Button>
+        </div>
+        
        { showNotify && <Notify message={notifyData.message} type={notifyData.type} setShowNotify={setShowNotify}/>}
     </div>
   )

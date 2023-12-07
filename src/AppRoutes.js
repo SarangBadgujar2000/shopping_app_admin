@@ -5,6 +5,9 @@ import Signup from './components/pages/Signup'
 import Dashboard from './components/pages/Dashboard'
 import DashboardLayout from './layouts/DashboardLayout'
 import { getCookie } from './utils/getCookie'
+import Products from './components/pages/Products'
+import Banners from './components/pages/Banners'
+import AddBanner from './components/pages/AddBanner'
 
 export default function AppRoutes() {
   return (
@@ -14,6 +17,9 @@ export default function AppRoutes() {
         <Route path='/login' element={getCookie('token')? <Navigate to='/dashboard'/> : <Login />}/>
         <Route path='/signup' element={getCookie('token')? <Navigate to='/dashboard'/> : <Signup />}/>
         <Route path='/dashboard' element={<Dashboard />}/>
+        <Route path='/banners' element={<Banners />}/>
+        <Route path='/products' element={<Products/>}/>
+        <Route path='/add-banner' element={<AddBanner/>}/>
       </Route>
     </Routes>
   )
