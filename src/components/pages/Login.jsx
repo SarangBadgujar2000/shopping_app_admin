@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import apiConnection from '../../apiConnection';
@@ -29,9 +29,7 @@ export default function Login() {
         const data = await apiConnection(apiEndpoints.LOGIN_USER_ENDPOINT,httpMethods.POST,logInFormData)
         console.log("Log for LoginUser",data);
         if(data.status === 200){
-            navigate("/");
-            setShowNotify(true)
-            setNotifyData({...notifyData, message: data.data.message, type: 'success' })
+            navigate("/dashboard");
         } else {
           setShowNotify(true)
           setNotifyData({...notifyData, message: 'ERROR: Please reload your application', type: 'danger' })

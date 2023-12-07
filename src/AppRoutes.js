@@ -4,23 +4,23 @@ import Login from './components/pages/Login'
 import Signup from './components/pages/Signup'
 import Dashboard from './components/pages/Dashboard'
 import DashboardLayout from './layouts/DashboardLayout'
-import { getCookie } from './utils/getCookie'
 import Products from './components/pages/Products'
 import Banners from './components/pages/Banners'
 import AddBanner from './components/pages/AddBanner'
+import ProtectedRoute from './components/common/ProtectedRoute'
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path='/' element={<DashboardLayout />}>
-        <Route index element={getCookie('token')? <Navigate to='/dashboard'/> : <Navigate to='/signup'/>}/>
-        <Route path='/login' element={getCookie('token')? <Navigate to='/dashboard'/> : <Login />}/>
-        <Route path='/signup' element={getCookie('token')? <Navigate to='/dashboard'/> : <Signup />}/>
-        <Route path='/dashboard' element={<Dashboard />}/>
-        <Route path='/banners' element={<Banners />}/>
-        <Route path='/products' element={<Products/>}/>
-        <Route path='/add-banner' element={<AddBanner/>}/>
-      </Route>
+        <Route path='/login' element={<ProtectedRoute shouldLoggedIn={false} component={Login}/>}/>
+        <Route path='/signup' element={<ProtectedRoute shouldLoggedIn={false} component={Signup}/>}/>
+        <Route path='/' element={<ProtectedRoute shouldLoggedIn={true} component={DashboardLayout}/>}>
+          <Route index element={<Navigate to='/dashboard'/>}/>
+          <Route path='/dashboard' element={<Dashboard />}/>
+          <Route path='/banners' element={<Banners />}/>
+          <Route path='/products' element={<Products/>}/>
+          <Route path='/add-banner' element={<AddBanner/>}/>
+        </Route>
     </Routes>
   )
 }
